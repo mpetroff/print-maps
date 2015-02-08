@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"/>
+<title>Print Maps</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<link rel="stylesheet" href="lib/css/mapbox-gl.css"/>
+<link rel="stylesheet" href="lib/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+<div class="container">
+
+<div class="page-header">
+  <h1>Print Maps</h1>
+  <p class="lead">High-resolution maps in the browser, for printing.</p>
+</div>
+
+<noscript>
+  <div class="alert alert-danger" role="alert">
+    This site requires JavaScript to function, but it seems to be disabled in your browser.
+  </div>
+</noscript>
+
+<form onsubmit="generateMap(); return false;" id="config">
+  <fieldset id="config-fields">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Unit</label><br>
+        <label class="radio-inline">
+          <input type="radio" name="unitOptions" value="in" id="inUnit" checked> Inch
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="unitOptions" value="mm" id="mmUnit"> Millimeter
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Output format</label><br>
+        <label class="radio-inline">
+          <input type="radio" name="outputOptions" value="png" checked> PNG
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="outputOptions" value="pdf"> PDF
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="styleSelect">Map style</label>
+        <select id="styleSelect" class="form-control">
+          <option value="https://www.mapbox.com/mapbox-gl-styles/styles/bright-v6.json">Bright</option>
+          <option value="https://www.mapbox.com/mapbox-gl-styles/styles/outdoors-v6.json">Outdoors</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group" id="widthGroup">
+        <label for="widthInput">Width</label>
+        <input type="text" class="form-control" id="widthInput" autocomplete="off" value="8">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group" id="heightGroup">
+        <label for="heightInput">Height</label>
+        <input type="text" class="form-control" id="heightInput" autocomplete="off" value="6">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group" id="dpiGroup">
+        <label for="dpiInput">DPI</label>
+        <input type="text" class="form-control" id="dpiInput" autocomplete="off" value="300">
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-danger" role="alert" id="error-message"></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Map</h3>
+        </div>
+        <div class="panel-body map-container">
+          <div id="map">
+            <img class="mb-attribution" src="https://cdn.rawgit.com/mapbox/mapbox-press-assets/master/logos/mapbox-logo/attribution-logo.svg"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary btn-lg" id="generate-btn">Generate Map</button>
+      <div id="spinner"></div>
+    </div>
+  </div>
+  </fieldset>
+</form>
+
+<!-- Error Modal -->
+<div class="modal in" id="errorModal" tabindex="-1" role="dialog">
+  <div class="modal-backdrop in" id="modal-backdrop" onclick="closeErrorModal()"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" onclick="closeErrorModal()"><span>&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body">
+        <p id="modal-error-text"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="closeErrorModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<footer>
+  <p>
+    Print Maps is a project by <a href="//mpetroff.net/">Matthew Petroff</a>.
+    The code behind this site is available on <a href="https://github.com/mpetroff/print-maps">GitHub</a>.
+  </p>
+</footer>
+
+</div>
+
+<script type="text/javascript" src="lib/js/mapbox-gl.js"></script>
+<script type="text/javascript" src="lib/js/canvas-toBlob.js"></script>
+<script type="text/javascript" src="lib/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="lib/js/jspdf.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+</html>

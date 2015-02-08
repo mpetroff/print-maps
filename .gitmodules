@@ -1,0 +1,12 @@
+[submodule "lib/submodules/mapbox-gl-js"]
+	path = lib/submodules/mapbox-gl-js
+	url = https://github.com/mapbox/mapbox-gl-js.git
+[submodule "lib/submodules/jsPDF"]
+	path = lib/submodules/jsPDF
+	url = https://github.com/MrRio/jsPDF.git
+[submodule "lib/submodules/FileSaver.js"]
+	path = lib/submodules/FileSaver.js
+	url = https://github.com/eligrey/FileSaver.js.git
+[submodule "lib/submodules/canvas-toBlob.js"]
+	path = lib/submodules/canvas-toBlob.js
+	url = https://github.com/eligrey/canvas-toBlob.js.git
