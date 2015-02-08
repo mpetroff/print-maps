@@ -33,3 +33,4 @@ file `COPYING` or peruse the license
 * [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
 * [canvas-toBlob.js](https://github.com/eligrey/canvas-toBlob.js)
 * [jsPDF](https://github.com/MrRio/jsPDF)
+* [Bootstrap](http://getbootstrap.com/)
