@@ -364,8 +364,8 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
             var x = (pdf.internal.pageSize.width - width) / 2;
             var y = (pdf.internal.pageSize.height - height) / 2;
 
-            pdf.addImage(renderMap.canvas.canvas.toDataURL(), 'png', x, y,
-                width, height);
+            pdf.addImage(renderMap.canvas.canvas.toDataURL('image/jpeg', 0.95),
+                'jpeg', x, y, width, height);
             pdf.save('map.pdf');
         }
 
