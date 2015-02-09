@@ -9,6 +9,7 @@ cd submodules/mapbox-gl-js
 npm install
 npm run production
 sed 's/window.devicePixelRatio/window.pixelRatio/g' dist/mapbox-gl.js > ../../js/mapbox-gl.js
+cp dist/mapbox-gl.js.map ../../js/mapbox-gl.js.map
 cp dist/mapbox-gl.css ../../css/mapbox-gl.css
 cp -r dist/images ../../css/images
 cd ..
