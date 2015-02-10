@@ -16,9 +16,8 @@ resolution maps in the browser.
 
 ## Building
 
-On a POSIX system, run `install.sh`. This will install the dependencies in the
-correct locations (requires Mapbox GL JS build dependencies). Then add your
-Mapbox access token to `js/script.js` and open `index.html`.
+Add your Mapbox access token to `js/script.js`, run a local webserver such as
+`python3 -m http.server`, and open `index.html`.
 
 ## License
 
