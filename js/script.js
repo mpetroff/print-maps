@@ -25,14 +25,6 @@ mapboxgl.accessToken = '';
 
 var form = document.getElementById('config');
 
-// Initialize pixel ratio
-//
-// Since window.devicePixelRatio is read-only and Mapbox GL doesn't expose its
-// internal parameter, Mapbox GL has been modified, and all (two) instances of
-// window.devicePixelRatio have been replaced with window.pixelRatio.
-
-window.pixelRatio = window.devicePixelRatio;
-
 
 
 //
@@ -327,7 +319,10 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
     'use strict';
 
     // Calculate pixel ratio
-    window.pixelRatio = dpi / 96;
+    var actualPixelRatio = window.devicePixelRatio;
+    Object.defineProperty(window, 'devicePixelRatio', {
+        get: function() {return dpi / 96}
+    });
 
     // Create map container
     var hidden = document.createElement('div');
@@ -368,7 +363,9 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
 
         renderMap.remove();
         hidden.parentNode.removeChild(hidden);
-        window.pixelRatio = window.devicePixelRatio;
+        Object.defineProperty(window, 'devicePixelRatio', {
+            get: function() {return actualPixelRatio}
+        });
         document.getElementById('spinner').style.display = 'none';
         document.getElementById('generate-btn').classList.remove('disabled');
     });
