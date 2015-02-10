@@ -357,15 +357,12 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
             var pdf = new jsPDF({
                 orientation: width > height ? 'l' : 'p',
                 unit: unit,
-                format: unit == 'mm' ? 'a4' : 'letter',
+                format: [width, height],
                 compress: true
             });
 
-            var x = (pdf.internal.pageSize.width - width) / 2;
-            var y = (pdf.internal.pageSize.height - height) / 2;
-
             pdf.addImage(renderMap.canvas.canvas.toDataURL('image/jpeg', 0.95),
-                'jpeg', x, y, width, height);
+                'jpeg', 0, 0, width, height);
             pdf.save('map.pdf');
         }
 
