@@ -70,9 +70,11 @@ if ('geolocation' in navigator) {
 // Errors
 //
 
+var maxSize;
 if (map) {
-    var gl = map.canvas.getWebGLContext();
-    var maxSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE);
+    var canvas = map.getCanvas();
+    var gl = canvas.getContext('experimental-webgl');
+    maxSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE);
 }
 
 var errors = {
