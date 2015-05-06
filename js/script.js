@@ -347,7 +347,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
     });
     renderMap.once('load', function() {
         if (format == 'png') {
-            renderMap.canvas.canvas.toBlob(function(blob) {
+            renderMap.getCanvas().toBlob(function(blob) {
                 saveAs(blob, 'map.png');
             });
         } else {
