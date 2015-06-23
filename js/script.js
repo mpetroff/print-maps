@@ -40,10 +40,9 @@ try {
         style: form.styleSelect.value
     });
     map.addControl(new mapboxgl.Navigation({
-        position: 'topleft'
+        position: 'top-left'
     }));
 } catch (e) {
-    //document.getElementById('generate-btn').classList.add('disabled');
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
     document.getElementById('config-fields').setAttribute('disabled', 'yes');
@@ -60,7 +59,8 @@ try {
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(function(position) {
         'use strict';
-        map.flyTo([position.coords.latitude, position.coords.longitude], 10);
+        map.flyTo({center: [position.coords.latitude,
+            position.coords.longitude], zoom: 10});
     });
 }
 
