@@ -285,6 +285,8 @@ function toPixels(length) {
 // High-res map rendering
 //
 
+document.getElementById('generate-btn').addEventListener('click', generateMap);
+
 function generateMap() {
     'use strict';
 
