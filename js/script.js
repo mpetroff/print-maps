@@ -59,8 +59,8 @@ try {
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(function(position) {
         'use strict';
-        map.flyTo({center: [position.coords.latitude,
-            position.coords.longitude], zoom: 10});
+        map.flyTo({center: [position.coords.longitude,
+            position.coords.latitude], zoom: 10});
     });
 }
 
