@@ -360,7 +360,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
                 compress: true
             });
 
-            pdf.addImage(renderMap.canvas.canvas.toDataURL('image/jpeg', 0.95),
+            pdf.addImage(renderMap.getCanvas().toDataURL('image/jpeg', 0.95),
                 'jpeg', 0, 0, width, height);
             pdf.save('map.pdf');
         }
