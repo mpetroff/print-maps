@@ -39,7 +39,7 @@ try {
         zoom: 0.5,
         style: form.styleSelect.value
     });
-    map.addControl(new mapboxgl.Navigation({
+    map.addControl(new mapboxgl.NavigationControl({
         position: 'top-left'
     }));
 } catch (e) {
@@ -360,8 +360,8 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
                 compress: true
             });
 
-            pdf.addImage(renderMap.getCanvas().toDataURL('image/jpeg', 0.95),
-                'jpeg', 0, 0, width, height);
+            pdf.addImage(renderMap.getCanvas().toDataURL('image/png'),
+                'png', 0, 0, width, height, null, 'FAST');
             pdf.save('map.pdf');
         }
 
