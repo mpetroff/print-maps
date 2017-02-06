@@ -139,7 +139,7 @@ function isError() {
 
 form.widthInput.addEventListener('change', function(e) {
     'use strict';
-    var val = Number(e.target.value);
+    var val = (form.unitOptions.value == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
     var dpi = Number(form.dpiInput.value);
     if (val > 0) {
         if (val * dpi > maxSize) {
@@ -151,6 +151,7 @@ form.widthInput.addEventListener('change', function(e) {
             errors.width.msg = 'The width is unreasonably big!';
         } else {
             errors.width.state = false;
+            if (form.unitOptions.value == 'mm') val *= 25.4;
             document.getElementById('map').style.width = toPixels(val);
             map.resize();
         }
@@ -163,7 +164,7 @@ form.widthInput.addEventListener('change', function(e) {
 
 form.heightInput.addEventListener('change', function(e) {
     'use strict';
-    var val = Number(e.target.value);
+    var val = (form.unitOptions.value == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
     var dpi = Number(form.dpiInput.value);
     if (val > 0) {
         if (val * dpi > maxSize) {
@@ -175,6 +176,7 @@ form.heightInput.addEventListener('change', function(e) {
             errors.height.msg = 'The height is unreasonably big!';
         } else {
             errors.height.state = false;
+            if (form.unitOptions.value == 'mm') val *= 25.4;
             document.getElementById('map').style.height = toPixels(val);
             map.resize();
         }
