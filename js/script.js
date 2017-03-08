@@ -37,6 +37,7 @@ try {
         container: 'map',
         center: [0, 0],
         zoom: 0.5,
+        pitch: 0,
         style: form.styleSelect.value
     });
     map.addControl(new mapboxgl.NavigationControl({
@@ -315,13 +316,14 @@ function generateMap() {
     var zoom = map.getZoom();
     var center = map.getCenter();
     var bearing = map.getBearing();
+    var pitch = map.getPitch();
 
     createPrintMap(width, height, dpi, format, unit, zoom, center,
-        bearing, style);
+        bearing, style, pitch);
 }
 
 function createPrintMap(width, height, dpi, format, unit, zoom, center,
-    bearing, style) {
+    bearing, style, pitch) {
     'use strict';
 
     // Calculate pixel ratio
@@ -346,6 +348,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
         zoom: zoom,
         style: style,
         bearing: bearing,
+        pitch: pitch,
         interactive: false,
         attributionControl: false
     });
