@@ -47,8 +47,7 @@ try {
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
     document.getElementById('config-fields').setAttribute('disabled', 'yes');
-    openErrorModal('This site requires WebGL, but your browser doesn\'t seem' +
-        ' to support it. Sorry.');
+    openErrorModal("print-maps error - " + e.message);
 }
 
 
