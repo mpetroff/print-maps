@@ -140,7 +140,8 @@ function isError() {
 
 form.widthInput.addEventListener('change', function(e) {
     'use strict';
-    var val = (form.unitOptions.value == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
+    var unit = form.unitOptions[0].checked ? 'in' : 'mm';
+    var val = (unit == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
     var dpi = Number(form.dpiInput.value);
     if (val > 0) {
         if (val * dpi > maxSize) {
@@ -152,7 +153,7 @@ form.widthInput.addEventListener('change', function(e) {
             errors.width.msg = 'The width is unreasonably big!';
         } else {
             errors.width.state = false;
-            if (form.unitOptions.value == 'mm') val *= 25.4;
+            if (unit == 'mm') val *= 25.4;
             document.getElementById('map').style.width = toPixels(val);
             map.resize();
         }
@@ -165,7 +166,8 @@ form.widthInput.addEventListener('change', function(e) {
 
 form.heightInput.addEventListener('change', function(e) {
     'use strict';
-    var val = (form.unitOptions.value == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
+    var unit = form.unitOptions[0].checked ? 'in' : 'mm';
+    var val = (unit == 'mm') ? Number(e.target.value / 25.4) : Number(e.target.value);
     var dpi = Number(form.dpiInput.value);
     if (val > 0) {
         if (val * dpi > maxSize) {
@@ -177,7 +179,7 @@ form.heightInput.addEventListener('change', function(e) {
             errors.height.msg = 'The height is unreasonably big!';
         } else {
             errors.height.state = false;
-            if (form.unitOptions.value == 'mm') val *= 25.4;
+            if (unit == 'mm') val *= 25.4;
             document.getElementById('map').style.height = toPixels(val);
             map.resize();
         }
@@ -220,7 +222,8 @@ form.inUnit.addEventListener('change', function() {
     form.heightInput.value /= 25.4;
 });
 
-if (form.unitOptions.value == 'mm') {
+if (form.unitOptions[1].checked) {
+    // Millimeters
     form.widthInput.value *= 25.4;
     form.heightInput.value *= 25.4;
 }
@@ -273,7 +276,7 @@ function measureScrollbar() {
 
 function toPixels(length) {
     'use strict';
-    var unit = form.unitOptions.value;
+    var unit = form.unitOptions[0].checked ? 'in' : 'mm';
     var conversionFactor = 96;
     if (unit == 'mm') {
         conversionFactor /= 25.4;
@@ -307,9 +310,9 @@ function generateMap() {
 
     var dpi = Number(form.dpiInput.value);
 
-    var format = form.outputOptions.value;
+    var format = form.outputOptions[0].checked ? 'png' : 'pdf';
 
-    var unit = form.unitOptions.value;
+    var unit = form.unitOptions[0].checked ? 'in' : 'mm';
 
     var style = form.styleSelect.value;
 
