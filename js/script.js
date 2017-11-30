@@ -242,7 +242,11 @@ form.zoomInput.addEventListener('change', function(e) {
 
 form.styleSelect.addEventListener('change', function() {
     'use strict';
+    try {
     map.setStyle(form.styleSelect.value);
+    } catch (e) {
+        openErrorModal("print-maps error - " + e.message);
+    }
 });
 
 form.mmUnit.addEventListener('change', function() {
@@ -405,6 +409,19 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
 
             pdf.addImage(renderMap.getCanvas().toDataURL('image/png'),
                 'png', 0, 0, width, height, null, 'FAST');
+
+            var title = map.getStyle().name;
+            var author = "";
+            var creator = "";
+            var subject = "center: [" + form.longitudeInput.value  + ", " + form.latitudeInput.value + ", " + form.zoomInput.value + "]";
+
+            pdf.setProperties({
+              title: title,
+              author: author,
+              subject: subject,
+              creator: creator,
+              keywords: 'jsPDF, javascript, parallax, mapbox'
+            })
             pdf.save('map.pdf');
         }
 
