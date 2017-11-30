@@ -30,6 +30,19 @@ var form = document.getElementById('config');
 //
 // Interactive map
 //
+function follow() {
+  var zoom = map.getZoom();
+  var center = map.getCenter().toArray();
+
+  var z    = parseFloat(zoom).toFixed(2);
+  var lat  = parseFloat(center[1]).toFixed(4);
+  var long = parseFloat(center[0]).toFixed(4);
+
+
+  form.zoomInput.value = z;
+  form.latitudeInput.value = lat;
+  form.longitudeInput.value = long;
+}
 
 var map;
 try {
@@ -43,6 +56,9 @@ try {
     map.addControl(new mapboxgl.NavigationControl({
         position: 'top-left'
     }));
+
+    // setup initial values for UI
+    follow();
 } catch (e) {
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
@@ -202,6 +218,26 @@ form.dpiInput.addEventListener('change', function(e) {
         errors.dpi.state = true;
     }
     handleErrors();
+});
+
+map.on('moveend', follow).on('zoomend', follow);
+
+form.latitudeInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setCenter([form.longitudeInput.value, val]);
+});
+
+form.longitudeInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setCenter([val, form.latitudeInput.value]);
+});
+
+form.zoomInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setZoom(val);
 });
 
 form.styleSelect.addEventListener('change', function() {
