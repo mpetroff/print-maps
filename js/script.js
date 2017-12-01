@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
+
 mapboxgl.accessToken = '';
 
 var form = document.getElementById('config');
@@ -30,6 +30,19 @@ var form = document.getElementById('config');
 //
 // Interactive map
 //
+function follow() {
+  var zoom = map.getZoom();
+  var center = map.getCenter().toArray();
+
+  var z    = parseFloat(zoom).toFixed(2);
+  var lat  = parseFloat(center[1]).toFixed(4);
+  var long = parseFloat(center[0]).toFixed(4);
+
+
+  form.zoomInput.value = z;
+  form.latitudeInput.value = lat;
+  form.longitudeInput.value = long;
+}
 
 var map;
 try {
@@ -43,12 +56,14 @@ try {
     map.addControl(new mapboxgl.NavigationControl({
         position: 'top-left'
     }));
+
+    // setup initial values for UI
+    follow();
 } catch (e) {
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
     document.getElementById('config-fields').setAttribute('disabled', 'yes');
-    openErrorModal('This site requires WebGL, but your browser doesn\'t seem' +
-        ' to support it. Sorry.');
+    openErrorModal("print-maps error - " + e.message);
 }
 
 
@@ -205,9 +220,33 @@ form.dpiInput.addEventListener('change', function(e) {
     handleErrors();
 });
 
+map.on('moveend', follow).on('zoomend', follow);
+
+form.latitudeInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setCenter([form.longitudeInput.value, val]);
+});
+
+form.longitudeInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setCenter([val, form.latitudeInput.value]);
+});
+
+form.zoomInput.addEventListener('change', function(e) {
+    'use strict';
+    var val = Number(e.target.value);
+    map.setZoom(val);
+});
+
 form.styleSelect.addEventListener('change', function() {
     'use strict';
+    try {
     map.setStyle(form.styleSelect.value);
+    } catch (e) {
+        openErrorModal("print-maps error - " + e.message);
+    }
 });
 
 form.mmUnit.addEventListener('change', function() {
@@ -291,7 +330,7 @@ function toPixels(length) {
 // High-res map rendering
 //
 
-document.getElementById('generate-btn').addEventListener('click', generateMap);
+// document.getElementById('generate-btn').addEventListener('click', generateMap);
 
 function generateMap() {
     'use strict';
@@ -370,6 +409,19 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
 
             pdf.addImage(renderMap.getCanvas().toDataURL('image/png'),
                 'png', 0, 0, width, height, null, 'FAST');
+
+            var title = map.getStyle().name;
+            var author = "";
+            var creator = "";
+            var subject = "center: [" + form.longitudeInput.value  + ", " + form.latitudeInput.value + ", " + form.zoomInput.value + "]";
+
+            pdf.setProperties({
+              title: title,
+              author: author,
+              subject: subject,
+              creator: creator,
+              keywords: 'jsPDF, javascript, parallax, mapbox'
+            })
             pdf.save('map.pdf');
         }
 
