@@ -25,11 +25,31 @@ mapboxgl.accessToken = '';
 
 var form = document.getElementById('config');
 
+if (!mapboxgl.accessToken || mapboxgl.accessToken.length < 10) {
+    // Don't use Mapbox style without access token
+    for (var i = form.styleSelect.length - 1; i >= 0; i--) {
+        if (form.styleSelect[i].value.indexOf('mapbox') >= 0) {
+            form.styleSelect.remove(i);
+        }
+    }
+}
 
 
 //
 // Interactive map
 //
+
+function updateLocationInputs() {
+    var center = map.getCenter().toArray();
+
+    var zoom = parseFloat(map.getZoom()).toFixed(2),
+        lat = parseFloat(center[1]).toFixed(4),
+        lon = parseFloat(center[0]).toFixed(4);
+
+    form.zoomInput.value = zoom;
+    form.latInput.value = lat;
+    form.lonInput.value = lon;
+}
 
 var map;
 try {
@@ -43,12 +63,14 @@ try {
     map.addControl(new mapboxgl.NavigationControl({
         position: 'top-left'
     }));
+    map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
+    updateLocationInputs();
 } catch (e) {
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
     document.getElementById('config-fields').setAttribute('disabled', 'yes');
     openErrorModal('This site requires WebGL, but your browser doesn\'t seem' +
-        ' to support it. Sorry.');
+        ' to support it: ' + e.message);
 }
 
 
@@ -207,7 +229,11 @@ form.dpiInput.addEventListener('change', function(e) {
 
 form.styleSelect.addEventListener('change', function() {
     'use strict';
-    map.setStyle(form.styleSelect.value);
+    try {
+        map.setStyle(form.styleSelect.value);
+    } catch (e) {
+        openErrorModal("Error changing style: " + e.message);
+    }
 });
 
 form.mmUnit.addEventListener('change', function() {
@@ -227,6 +253,21 @@ if (form.unitOptions[1].checked) {
     form.widthInput.value *= 25.4;
     form.heightInput.value *= 25.4;
 }
+
+form.latInput.addEventListener('change', function() {
+    'use strict';
+    map.setCenter([form.lonInput.value, form.latInput.value]);
+});
+
+form.lonInput.addEventListener('change', function() {
+    'use strict';
+    map.setCenter([form.lonInput.value, form.latInput.value]);
+});
+
+form.zoomInput.addEventListener('change', function(e) {
+    'use strict';
+    map.setZoom(e.target.value);
+});
 
 
 //
@@ -370,6 +411,20 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
 
             pdf.addImage(renderMap.getCanvas().toDataURL('image/png'),
                 'png', 0, 0, width, height, null, 'FAST');
+
+            var title = map.getStyle().name,
+                subject = "center: [" + form.lonInput.value  + ", " + form.latInput.value + ", " + form.zoomInput.value + "]",
+                attribution = '(c) ' +
+                    (form.styleSelect.value.indexOf('mapbox') >= 0 ? 'Mapbox' : 'OpenMapTiles') +
+                    ', (c) OpenStreetMap';
+
+            pdf.setProperties({
+                title: title,
+                subject: subject,
+                creator: 'Print Maps',
+                author: attribution
+            })
+
             pdf.save('map.pdf');
         }
 
