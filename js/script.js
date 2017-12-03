@@ -34,6 +34,12 @@ if (!mapboxgl.accessToken || mapboxgl.accessToken.length < 10) {
     }
 }
 
+// Show attribution requirement of initial style
+if (form.styleSelect.value.indexOf('mapbox') >= 0)
+    document.getElementById('mapbox-attribution').style.display = 'block';
+else
+    document.getElementById('openmaptiles-attribution').style.display = 'block';
+
 
 //
 // Interactive map
@@ -50,7 +56,7 @@ function updateLocationInputs() {
     form.latInput.value = lat;
     form.lonInput.value = lon;
 }
-
+openErrorModal('test');
 var map;
 try {
     map = new mapboxgl.Map({
@@ -234,6 +240,14 @@ form.styleSelect.addEventListener('change', function() {
     } catch (e) {
         openErrorModal("Error changing style: " + e.message);
     }
+    // Update attribution requirements
+    if (form.styleSelect.value.indexOf('mapbox') >= 0) {
+        document.getElementById('mapbox-attribution').style.display = 'block';
+        document.getElementById('openmaptiles-attribution').style.display = 'none';
+    } else {
+        document.getElementById('mapbox-attribution').style.display = 'none';
+        document.getElementById('openmaptiles-attribution').style.display = 'block';
+    }
 });
 
 form.mmUnit.addEventListener('change', function() {
@@ -282,8 +296,9 @@ function openErrorModal(msg) {
     document.getElementById('modal-error-text').innerHTML = msg;
     modal.style.display = 'block';
     document.body.classList.add('modal-open');
-    document.getElementById('modal-backdrop').style.height =
+    document.getElementById('modalBackdrop').style.height =
         modal.scrollHeight + 'px';
+    document.getElementById('modalBackdrop').style.display = 'block';
 
     if (document.body.scrollHeight > document.documentElement.clientHeight) {
         origBodyPaddingRight = document.body.style.paddingRight;
@@ -295,6 +310,7 @@ function openErrorModal(msg) {
 function closeErrorModal() {
     'use strict';
     document.getElementById('errorModal').style.display = 'none';
+    document.getElementById('modalBackdrop').style.display = 'none';
     document.body.classList.remove('modal-open');
     document.body.style.paddingRight = origBodyPaddingRight;
 }

@@ -129,6 +129,32 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Required Attribution</h3>
+      </div>
+      <div class="panel-body" id="mapbox-attribution" style="display: none;">
+        <p><strong>Attribution of maps is required.</strong> Per the <a href="https://www.mapbox.com/help/how-attribution-works/#static--print">Mapbox attribution requirements:</a></p>
+        <p>Static and print maps need to be attributed in the same fashion as you would cite a photograph: in a textual description near the image.</p>
+        <p>If you can include HTML, use this code snippet that includes links to Mapbox & OpenStreetMap:</p>
+        <pre>© &lt;a href='https://www.mapbox.com/about/maps/'&gt;Mapbox&lt;/a&gt; © &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap&lt;/a&gt; &lt;strong&gt;&lt;a href='https://www.mapbox.com/map-feedback/' target='_blank'&gt;Improve this map&lt;/a&gt;&lt;/strong&gt;</pre>
+        <p>For print output or if you can’t include links, use this text-only attribution:</p>
+        <pre>© Mapbox, © OpenStreetMap</pre>
+      </div>
+      <div class="panel-body" id="openmaptiles-attribution" style="display: none;">
+        <p><strong>Attribution of maps is required.</strong> Only Mapbox styles allow commerical use. Per the <a href="https://openmaptiles.com/terms/">OpenMapTiles terms of use:</a></p>
+        <p><strong>Commerical use is prohibited.</strong></p>
+        <p>The OpenMapTiles has a strict requirement of attribution on the produced maps - whether you use the free, purchased or self-generated map tiles. It is important part of the sustainability strategy. By using OpenMapTiles you agree to provide such attribution on the maps you display.</p>
+        <p>For a browsable electronic map based on OpenMapTiles and OpenStreetMap data, the credit should appear in the corner of the map. For example:</p>
+        <pre>© &lt;a href='https://openmaptiles.org/'&gt;OpenMapTiles&lt;/a&gt; © &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap contributors&lt;/a&gt; &lt;strong&gt;&lt;a href='https://www.mapbox.com/map-feedback/' target='_blank'&gt;Improve this map&lt;/a&gt;&lt;/strong&gt;</pre>
+        <p>For printed maps, images or video recording a similar attribution should be made in a clearly visible textual description near the map, in the same fashion as if you cite a photograph.</p>
+        <p>Other datasets (such as Satellite or DEM derived data) may require attribution as well.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
     <button type="submit" class="btn btn-primary btn-lg" id="generate-btn">Generate Map</button>
     <div id="spinner"></div>
   </div>
@@ -136,7 +162,6 @@
 
 <!-- Error Modal -->
 <div class="modal in" id="errorModal" tabindex="-1" role="dialog">
-  <div class="modal-backdrop in" id="modal-backdrop" onclick="closeErrorModal()"></div>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -152,6 +177,7 @@
     </div>
   </div>
 </div>
+<div class="modal-backdrop in" id="modalBackdrop"></div>
 
 <hr>
 

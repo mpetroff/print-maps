@@ -19,6 +19,10 @@ resolution maps in the browser.
 Add your Mapbox access token to `js/script.js`, run a local webserver such as
 `python3 -m http.server`, and open `index.html`.
 
+## Attribution
+
+Attribution of maps is required. See tile provider terms for details.
+
 ## License
 
 Print Maps is distributed under the MIT License. For more information, read the
