@@ -56,7 +56,7 @@ function updateLocationInputs() {
     form.latInput.value = lat;
     form.lonInput.value = lon;
 }
-openErrorModal('test');
+
 var map;
 try {
     map = new mapboxgl.Map({
