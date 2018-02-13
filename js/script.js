@@ -1,6 +1,6 @@
 /*
  * Print Maps - High-resolution maps in the browser, for printing
- * Copyright (c) 2015-2017 Matthew Petroff
+ * Copyright (c) 2015-2018 Matthew Petroff
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
