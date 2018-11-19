@@ -430,6 +430,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
         attributionControl: false
     });
     renderMap.once('load', function() {
+    setTimeout(function() {
         if (format == 'png') {
             renderMap.getCanvas().toBlob(function(blob) {
                 saveAs(blob, 'map.png');
@@ -468,5 +469,6 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
         });
         document.getElementById('spinner').style.display = 'none';
         document.getElementById('generate-btn').classList.remove('disabled');
+    }, 500);
     });
 }
