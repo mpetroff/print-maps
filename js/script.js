@@ -387,6 +387,8 @@ function generateMap() {
     var unit = form.unitOptions[0].checked ? 'in' : 'mm';
 
     var style = form.styleSelect.value;
+    if (style.indexOf('tilehosting') >= 0)
+        style += '?key=' + mapTilerAccessToken;
 
     var zoom = map.getZoom();
     var center = map.getCenter();
