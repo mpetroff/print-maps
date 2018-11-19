@@ -22,6 +22,7 @@
  */
  
 mapboxgl.accessToken = '';
+var mapTilerAccessToken = '';
 
 var form = document.getElementById('config');
 
@@ -29,6 +30,14 @@ if (!mapboxgl.accessToken || mapboxgl.accessToken.length < 10) {
     // Don't use Mapbox style without access token
     for (var i = form.styleSelect.length - 1; i >= 0; i--) {
         if (form.styleSelect[i].value.indexOf('mapbox') >= 0) {
+            form.styleSelect.remove(i);
+        }
+    }
+}
+if (!mapTilerAccessToken || mapTilerAccessToken.length < 10) {
+    // Don't use MapTiler styles without access token
+    for (var i = form.styleSelect.length - 1; i >= 0; i--) {
+        if (form.styleSelect[i].value.indexOf('tilehosting') >= 0) {
             form.styleSelect.remove(i);
         }
     }
@@ -59,12 +68,15 @@ function updateLocationInputs() {
 
 var map;
 try {
+    var style = form.styleSelect.value;
+    if (style.indexOf('tilehosting') >= 0)
+        style += '?key=' + mapTilerAccessToken;
     map = new mapboxgl.Map({
         container: 'map',
         center: [0, 0],
         zoom: 0.5,
         pitch: 0,
-        style: form.styleSelect.value
+        style: style
     });
     map.addControl(new mapboxgl.NavigationControl({
         position: 'top-left'
@@ -236,7 +248,10 @@ form.dpiInput.addEventListener('change', function(e) {
 form.styleSelect.addEventListener('change', function() {
     'use strict';
     try {
-        map.setStyle(form.styleSelect.value);
+        var style = form.styleSelect.value;
+        if (style.indexOf('tilehosting') >= 0)
+            style += '?key=' + mapTilerAccessToken;
+        map.setStyle(style);
     } catch (e) {
         openErrorModal("Error changing style: " + e.message);
     }
