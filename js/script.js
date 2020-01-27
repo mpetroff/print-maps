@@ -1,6 +1,6 @@
 /*
  * Print Maps - High-resolution maps in the browser, for printing
- * Copyright (c) 2015-2018 Matthew Petroff
+ * Copyright (c) 2015-2020 Matthew Petroff
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -431,7 +431,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
         fadeDuration: 0,
         attributionControl: false
     });
-    renderMap.once('load', function() {
+    renderMap.once('idle', function() {
         if (format == 'png') {
             renderMap.getCanvas().toBlob(function(blob) {
                 saveAs(blob, 'map.png');
