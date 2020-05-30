@@ -78,9 +78,7 @@ try {
         pitch: 0,
         style: style
     });
-    map.addControl(new mapboxgl.NavigationControl({
-        position: 'top-left'
-    }));
+    map.addControl(new mapboxgl.NavigationControl());
     map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
     updateLocationInputs();
 } catch (e) {
