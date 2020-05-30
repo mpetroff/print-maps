@@ -69,7 +69,7 @@ function updateLocationInputs() {
 var map;
 try {
     var style = form.styleSelect.value;
-    if (style.indexOf('tilehosting') >= 0)
+    if (style.indexOf('maptiler') >= 0)
         style += '?key=' + mapTilerAccessToken;
     map = new mapboxgl.Map({
         container: 'map',
@@ -247,7 +247,7 @@ form.styleSelect.addEventListener('change', function() {
     'use strict';
     try {
         var style = form.styleSelect.value;
-        if (style.indexOf('tilehosting') >= 0)
+        if (style.indexOf('maptiler') >= 0)
             style += '?key=' + mapTilerAccessToken;
         map.setStyle(style);
     } catch (e) {
@@ -385,7 +385,7 @@ function generateMap() {
     var unit = form.unitOptions[0].checked ? 'in' : 'mm';
 
     var style = form.styleSelect.value;
-    if (style.indexOf('tilehosting') >= 0)
+    if (style.indexOf('maptiler') >= 0)
         style += '?key=' + mapTilerAccessToken;
 
     var zoom = map.getZoom();
