@@ -6,6 +6,13 @@ elements that print along with the map. Print Maps changes that by leveraging
 [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js) to render print
 resolution maps in the browser.
 
+## Future updates
+
+Due to Mapbox's new [anti-FOSS stance](https://github.com/mapbox/mapbox-gl-js/releases/tag/v2.0.0),
+Mapbox GL JS will not be updated past v1.13. Please reach out to Mapbox to
+express your displeasure with this stance. Maintenance on this repository will
+continue as long as fixes can be made without updating Mapbox GL JS.
+
 ## Options
 
 * Inches or millimeters
