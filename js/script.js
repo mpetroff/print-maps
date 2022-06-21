@@ -46,8 +46,10 @@ if (!mapTilerAccessToken || mapTilerAccessToken.length < 10) {
 // Show attribution requirement of initial style
 if (form.styleSelect.value.indexOf('mapbox') >= 0)
     document.getElementById('mapbox-attribution').style.display = 'block';
-else
+else if (form.styleSelect.value.indexOf('maptiler') >= 0)
     document.getElementById('openmaptiles-attribution').style.display = 'block';
+else
+    document.getElementById('stadiamaps-attribution').style.display = 'block';
 
 
 //
@@ -257,9 +259,15 @@ form.styleSelect.addEventListener('change', function() {
     if (form.styleSelect.value.indexOf('mapbox') >= 0) {
         document.getElementById('mapbox-attribution').style.display = 'block';
         document.getElementById('openmaptiles-attribution').style.display = 'none';
-    } else {
+        document.getElementById('stadiamaps-attribution').style.display = 'none';
+    } else if (form.styleSelect.value.indexOf('maptiler') >= 0) {
         document.getElementById('mapbox-attribution').style.display = 'none';
         document.getElementById('openmaptiles-attribution').style.display = 'block';
+        document.getElementById('stadiamaps-attribution').style.display = 'none';
+    } else {
+        document.getElementById('mapbox-attribution').style.display = 'none';
+        document.getElementById('openmaptiles-attribution').style.display = 'none';
+        document.getElementById('stadiamaps-attribution').style.display = 'block';
     }
 });
 
