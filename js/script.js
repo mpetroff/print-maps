@@ -22,7 +22,6 @@
  */
  
 mapboxgl.accessToken = '';
-var mapTilerAccessToken = '';
 
 var form = document.getElementById('config');
 
@@ -34,20 +33,10 @@ if (!mapboxgl.accessToken || mapboxgl.accessToken.length < 10) {
         }
     }
 }
-if (!mapTilerAccessToken || mapTilerAccessToken.length < 10) {
-    // Don't use MapTiler styles without access token
-    for (var i = form.styleSelect.length - 1; i >= 0; i--) {
-        if (form.styleSelect[i].value.indexOf('tilehosting') >= 0) {
-            form.styleSelect.remove(i);
-        }
-    }
-}
 
 // Show attribution requirement of initial style
 if (form.styleSelect.value.indexOf('mapbox') >= 0)
     document.getElementById('mapbox-attribution').style.display = 'block';
-else if (form.styleSelect.value.indexOf('maptiler') >= 0)
-    document.getElementById('openmaptiles-attribution').style.display = 'block';
 else
     document.getElementById('stadiamaps-attribution').style.display = 'block';
 
@@ -71,8 +60,6 @@ function updateLocationInputs() {
 var map;
 try {
     var style = form.styleSelect.value;
-    if (style.indexOf('maptiler') >= 0)
-        style += '?key=' + mapTilerAccessToken;
     map = new mapboxgl.Map({
         container: 'map',
         center: [0, 0],
@@ -249,8 +236,6 @@ form.styleSelect.addEventListener('change', function() {
     'use strict';
     try {
         var style = form.styleSelect.value;
-        if (style.indexOf('maptiler') >= 0)
-            style += '?key=' + mapTilerAccessToken;
         map.setStyle(style);
     } catch (e) {
         openErrorModal("Error changing style: " + e.message);
@@ -258,15 +243,9 @@ form.styleSelect.addEventListener('change', function() {
     // Update attribution requirements
     if (form.styleSelect.value.indexOf('mapbox') >= 0) {
         document.getElementById('mapbox-attribution').style.display = 'block';
-        document.getElementById('openmaptiles-attribution').style.display = 'none';
-        document.getElementById('stadiamaps-attribution').style.display = 'none';
-    } else if (form.styleSelect.value.indexOf('maptiler') >= 0) {
-        document.getElementById('mapbox-attribution').style.display = 'none';
-        document.getElementById('openmaptiles-attribution').style.display = 'block';
         document.getElementById('stadiamaps-attribution').style.display = 'none';
     } else {
         document.getElementById('mapbox-attribution').style.display = 'none';
-        document.getElementById('openmaptiles-attribution').style.display = 'none';
         document.getElementById('stadiamaps-attribution').style.display = 'block';
     }
 });
@@ -393,8 +372,6 @@ function generateMap() {
     var unit = form.unitOptions[0].checked ? 'in' : 'mm';
 
     var style = form.styleSelect.value;
-    if (style.indexOf('maptiler') >= 0)
-        style += '?key=' + mapTilerAccessToken;
 
     var zoom = map.getZoom();
     var center = map.getCenter();
@@ -456,7 +433,7 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
             var title = map.getStyle().name,
                 subject = "center: [" + form.lonInput.value  + ", " + form.latInput.value + ", " + form.zoomInput.value + "]",
                 attribution = '(c) ' +
-                    (form.styleSelect.value.indexOf('mapbox') >= 0 ? 'Mapbox' : 'OpenMapTiles') +
+                    (form.styleSelect.value.indexOf('mapbox') >= 0 ? 'Mapbox' : 'Stadia Maps') +
                     ', (c) OpenStreetMap';
 
             pdf.setProperties({
