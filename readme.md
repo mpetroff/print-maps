@@ -19,7 +19,7 @@ high resolution maps for printing by leveraging
 
 1. Create your map with CARTO Builder
 2. Share the map publicly and copy the Map ID
-3. Enter the Map ID in the corresponding text box and click on the "Load Map" button
+3. Enter the Map ID in the corresponding text box and click on the "Load" button
 4. Choose the desired options
 5. Click on the "Generate Map" button
 
