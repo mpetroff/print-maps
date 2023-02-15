@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "cartodb-fb-react-apps"
+  },
+  "targets": {
+    "cartodb-fb-react-apps": {
+      "hosting": {
+        "print-carto-maps": [
+          "print-carto-maps"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
