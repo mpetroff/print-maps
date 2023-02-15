@@ -1,11 +1,11 @@
-# Print Maps
+# Print CARTO Maps
 
 Web maps normally don't print well, as their resolution is much lower than
-normal print resolution, not to mention the various other unwanted text and
-elements that print along with the map. Print Maps changes that by leveraging
-[Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js) along with deck.gl
-to render print resolution maps including a basemap and additional layers
-in the browser.
+normal print resolution. With Print CARTO Maps you can get
+high resolution maps for printing by leveraging 
+[Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js) along with 
+[deck.gl](https://deck.gl) to render maps created with 
+[CARTO Builder](https://carto.com/builder/).
 
 ## Options
 
@@ -14,6 +14,14 @@ in the browser.
 * Choice of map styles
 * Height and width settings
 * DPI setting
+
+## Usage
+
+1. Create your map with CARTO Builder
+2. Share the map publicly and copy the Map ID
+3. Enter the Map ID in the corresponding text box and click on the "Load Map" button
+4. Choose the desired options
+5. Click on the "Generate Map" button
 
 ## Building
 
@@ -25,6 +33,7 @@ Attribution of maps is required. See tile provider terms for details.
 
 ## License
 
+Print CARTO Maps is forked from Print Maps by Matthew Petroff. 
 Print Maps is distributed under the MIT License. For more information, read the
 file `COPYING` or peruse the license
 [online](https://github.com/mpetroff/print-maps/blob/master/COPYING).
