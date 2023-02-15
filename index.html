@@ -27,7 +27,7 @@
 <form onsubmit="generateMap(); return false;" id="config">
   <fieldset id="config-fields">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-2">
       <div class="form-group">
         <label>Unit</label><br>
         <label class="radio-inline">
@@ -38,7 +38,7 @@
         </label>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="form-group">
         <label>Output format</label><br>
         <label class="radio-inline">
@@ -49,7 +49,7 @@
         </label>
       </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="styleSelect">Map style</label>
         <select id="styleSelect" class="form-control">
@@ -58,6 +58,16 @@
           <option value="voyager">CARTO Voyager</option>
         </select>
       </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="mapIdInput">Map ID</label>
+        <input type="text" class="form-control" id="mapIdInput" autocomplete="off" value="ff6ac53f-741a-49fb-b615-d040bc5a96b8">
+      </div>
+    </div>
+    <div class="col-sm-1">
+      <label for="load-map-btn">&nbsp;&nbsp;</label>
+      <button type="submit" class="btn btn-primary btn-md" id="load-map-btn">Load</button>
     </div>
   </div>
   <div class="row">
