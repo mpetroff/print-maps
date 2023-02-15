@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <title>Print Maps</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css"/>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"/>
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" href="css/style.css"/>
 </head>
@@ -15,7 +15,7 @@
 
 <div class="page-header">
   <h1>Print Maps</h1>
-  <p class="lead">High-resolution maps in the browser, for printing.</p>
+  <p class="lead">High-resolution maps in the browser using deck.gl and MapLibre GL JS, for printing.</p>
 </div>
 
 <noscript>
@@ -53,15 +53,9 @@
       <div class="form-group">
         <label for="styleSelect">Map style</label>
         <select id="styleSelect" class="form-control">
-          <option value="mapbox://styles/mapbox/bright-v9">Mapbox Bright</option>
-          <option value="mapbox://styles/mapbox/outdoors-v10">Mapbox Outdoors</option>
-          <option value="mapbox://styles/mapbox/emerald-v8">Mapbox Emerald</option>
-          <option value="mapbox://styles/mapbox/light-v9">Mapbox Light</option>
-          <option value="mapbox://styles/mapbox/streets-v10">Mapbox Streets</option>
-          <option value="https://tiles.stadiamaps.com/styles/alidade_smooth.json">Stadia Maps Alidade Smooth</option>
-          <option value="https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json">Stadia Maps Alidade Smooth Dark</option>
-          <option value="https://tiles.stadiamaps.com/styles/outdoors.json">Stadia Maps Outdoors</option>
-          <option value="https://tiles.stadiamaps.com/styles/osm_bright.json">Stadia Maps OSM Bright</option>
+          <option value="positron">CARTO Positron</option>
+          <option value="dark-matter">CARTO Dark Matter</option>
+          <option value="voyager">CARTO Voyager</option>
         </select>
       </div>
     </div>
@@ -129,17 +123,9 @@
       <div class="panel-heading">
         <h3 class="panel-title">Required Attribution</h3>
       </div>
-      <div class="panel-body" id="mapbox-attribution" style="display: none;">
-        <p><strong>Attribution of maps is required.</strong> Per the <a href="https://www.mapbox.com/help/how-attribution-works/#static--print">Mapbox attribution requirements:</a></p>
-        <p>Static and print maps need to be attributed in the same fashion as you would cite a photograph: in a textual description near the image.</p>
-        <p>If you can include HTML, use this code snippet that includes links to Mapbox & OpenStreetMap:</p>
-        <pre>© &lt;a href='https://www.mapbox.com/about/maps/'&gt;Mapbox&lt;/a&gt; © &lt;a href='https://www.openstreetmap.org/copyright'&gt;OpenStreetMap&lt;/a&gt; &lt;strong&gt;&lt;a href='https://www.mapbox.com/map-feedback/' target='_blank'&gt;Improve this map&lt;/a&gt;&lt;/strong&gt;</pre>
-        <p>For print output or if you can’t include links, use this text-only attribution:</p>
-        <pre>© Mapbox, © OpenStreetMap</pre>
-      </div>
-      <div class="panel-body" id="stadiamaps-attribution" style="display: none;">
-        <p><strong>Attribution of maps is required.</strong> See the Stadia Maps <a href="https://stadiamaps.com/attribution/">attribution</a> and <a href="https://stadiamaps.com/terms-of-service/">terms of service</a> pages for details.</p>
-        <p><strong>Commerical use is prohibited.</strong></p>
+      <div class="panel-body" id="carto-attribution" style="display: block;">
+        <p><strong>Attribution of maps is required.</strong> See the CARTO Basemaps <a href="https://drive.google.com/file/d/1P7bhSE-N9iegI398QYDjKeVhnbS7-Ilk/view?usp=sharing">Terms of Service</a> for details.</p>
+        <p><strong>Commercial use requires a CARTO subscription.</strong></p>
       </div>
     </div>
   </div>
@@ -174,14 +160,15 @@
 
 <footer>
   <p>
-    Print Maps is a project by <a href="//mpetroff.net/">Matthew Petroff</a>.
-    The code behind this site is available on <a href="https://github.com/mpetroff/print-maps">GitHub</a>.
+    Print Maps for deck.gl is a project by Borja Muñoz forked from a project developed
+    by <a href="//mpetroff.net/">Matthew Petroff</a>. 
+    The code behind this site is available on <a href="https://github.com/borja-munoz/print-maps-deckgl">GitHub</a>.
   </p>
 </footer>
 
 </div>
 
-<script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+<script type="text/javascript" src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/canvas-toblob/0.1/canvas-toBlob.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/filesaver.js@1.3.4/FileSaver.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/jspdf@1.4.1/dist/jspdf.min.js"></script>

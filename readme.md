@@ -3,15 +3,9 @@
 Web maps normally don't print well, as their resolution is much lower than
 normal print resolution, not to mention the various other unwanted text and
 elements that print along with the map. Print Maps changes that by leveraging
-[Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js) to render print
-resolution maps in the browser.
-
-## Future updates
-
-Due to Mapbox's new [anti-FOSS stance](https://github.com/mapbox/mapbox-gl-js/releases/tag/v2.0.0),
-Mapbox GL JS will not be updated past v1.13. Please reach out to Mapbox to
-express your displeasure with this stance. Maintenance on this repository will
-continue as long as fixes can be made without updating Mapbox GL JS.
+[Maplibre GL JS](https://github.com/maplibre/maplibre-gl-js) along with deck.gl
+to render print resolution maps including a basemap and additional layers
+in the browser.
 
 ## Options
 
@@ -23,8 +17,7 @@ continue as long as fixes can be made without updating Mapbox GL JS.
 
 ## Building
 
-Add your Mapbox access token to `js/script.js`, run a local webserver such as
-`python3 -m http.server`, and open `index.html`.
+Run a local webserver such as `python3 -m http.server`, and open `index.html`.
 
 ## Attribution
 
@@ -39,7 +32,7 @@ file `COPYING` or peruse the license
 ## Credits
 
 * [Matthew Petroff](http://mpetroff.net/), Original Author
-* [Mapbox GL JS](https://github.com/mapbox/mapbox-gl-js)
+* [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)
 * [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
 * [canvas-toBlob.js](https://github.com/eligrey/canvas-toBlob.js)
 * [jsPDF](https://github.com/MrRio/jsPDF)
