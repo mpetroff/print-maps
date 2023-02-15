@@ -27,6 +27,15 @@ high resolution maps for printing by leveraging
 
 Run a local webserver such as `python3 -m http.server`, and open `index.html`.
 
+## Deployment
+
+```shell
+$ cp index.html build
+$ cp -r css build
+$ cp -r js build
+$ firebase deploy
+``` 
+
 ## Attribution
 
 Attribution of maps is required. See tile provider terms for details.
