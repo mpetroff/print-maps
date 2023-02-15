@@ -41,42 +41,45 @@ function updateLocationInputs() {
 
 var map;
 var deckLayers;
-try {
-    deck.carto.fetchMap({cartoMapId: 'ff6ac53f-741a-49fb-b615-d040bc5a96b8'})
-    .then(({initialViewState, mapStyle, layers}) => {
 
-        deckLayers = layers;
-
-        map = new maplibregl.Map({
-            container: 'map',
-            center: [initialViewState.longitude, initialViewState.latitude],
-            zoom: initialViewState.zoom,
-            pitch: initialViewState.pitch,
-            bearing: initialViewState.bearing,
-            style: `https://basemaps.cartocdn.com/gl/${mapStyle.styleType}-gl-style/style.json`
-        });
-        map.addControl(new maplibregl.NavigationControl());
-        map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
-        updateLocationInputs();
+function initMap() {
+    try {
+        deck.carto.fetchMap({cartoMapId: document.getElementById('mapIdInput').value})
+        .then(({initialViewState, mapStyle, layers}) => {
     
-        form.styleSelect.value = mapStyle.styleType;
-
-        // Add the deck.gl layers as an overlay
-        deckOverlay = new deck.MapboxOverlay({
-            interleaved: true,
-            layers
+            deckLayers = layers;
+    
+            map = new maplibregl.Map({
+                container: 'map',
+                center: [initialViewState.longitude, initialViewState.latitude],
+                zoom: initialViewState.zoom,
+                pitch: initialViewState.pitch,
+                bearing: initialViewState.bearing,
+                style: `https://basemaps.cartocdn.com/gl/${mapStyle.styleType}-gl-style/style.json`
+            });
+            map.addControl(new maplibregl.NavigationControl());
+            map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
+            updateLocationInputs();
+        
+            form.styleSelect.value = mapStyle.styleType;
+    
+            // Add the deck.gl layers as an overlay
+            deckOverlay = new deck.MapboxOverlay({
+                interleaved: true,
+                layers
+            });
+            map.addControl(deckOverlay);
         });
-        map.addControl(deckOverlay);
-    });
-} catch (e) {
-    var mapContainer = document.getElementById('map');
-    mapContainer.parentNode.removeChild(mapContainer);
-    document.getElementById('config-fields').setAttribute('disabled', 'yes');
-    openErrorModal('This site requires WebGL, but your browser doesn\'t seem' +
-        ' to support it: ' + e.message);
+    } catch (e) {
+        var mapContainer = document.getElementById('map');
+        mapContainer.parentNode.removeChild(mapContainer);
+        document.getElementById('config-fields').setAttribute('disabled', 'yes');
+        openErrorModal('This site requires WebGL, but your browser doesn\'t seem' +
+            ' to support it: ' + e.message);
+    }
+    
 }
-
-
+initMap();
 
 //
 // Geolocation
@@ -162,6 +165,8 @@ function isError() {
 //
 // Configuration changes / validation
 //
+
+document.getElementById('load-map-btn').addEventListener('click', initMap);
 
 form.widthInput.addEventListener('change', function(e) {
     'use strict';
@@ -339,6 +344,7 @@ function toPixels(length) {
 //
 
 document.getElementById('generate-btn').addEventListener('click', generateMap);
+
 
 function generateMap() {
     'use strict';
