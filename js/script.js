@@ -345,7 +345,7 @@ function generateMap() {
 
     var unit = form.unitOptions[0].checked ? 'in' : 'mm';
 
-    var style = form.styleSelect.value;
+    var style = `https://basemaps.cartocdn.com/gl/${form.styleSelect.value}-gl-style/style.json`;
 
     var zoom = map.getZoom();
     var center = map.getCenter();
