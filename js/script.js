@@ -40,18 +40,34 @@ function updateLocationInputs() {
 }
 
 var map;
+var deckLayers;
 try {
-    var style = `https://basemaps.cartocdn.com/gl/${form.styleSelect.value}-gl-style/style.json`;
-    map = new maplibregl.Map({
-        container: 'map',
-        center: [0, 0],
-        zoom: 1,
-        pitch: 0,
-        style: style
+    deck.carto.fetchMap({cartoMapId: 'ff6ac53f-741a-49fb-b615-d040bc5a96b8'})
+    .then(({initialViewState, mapStyle, layers}) => {
+
+        deckLayers = layers;
+
+        map = new maplibregl.Map({
+            container: 'map',
+            center: [initialViewState.longitude, initialViewState.latitude],
+            zoom: initialViewState.zoom,
+            pitch: initialViewState.pitch,
+            bearing: initialViewState.bearing,
+            style: `https://basemaps.cartocdn.com/gl/${mapStyle.styleType}-gl-style/style.json`
+        });
+        map.addControl(new maplibregl.NavigationControl());
+        map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
+        updateLocationInputs();
+    
+        form.styleSelect.value = mapStyle.styleType;
+
+        // Add the deck.gl layers as an overlay
+        deckOverlay = new deck.MapboxOverlay({
+            interleaved: true,
+            layers
+        });
+        map.addControl(deckOverlay);
     });
-    map.addControl(new maplibregl.NavigationControl());
-    map.on('moveend', updateLocationInputs).on('zoomend', updateLocationInputs);
-    updateLocationInputs();
 } catch (e) {
     var mapContainer = document.getElementById('map');
     mapContainer.parentNode.removeChild(mapContainer);
@@ -388,6 +404,16 @@ function createPrintMap(width, height, dpi, format, unit, zoom, center,
         fadeDuration: 0,
         attributionControl: false
     });
+    renderMap.addControl(new deck.MapboxOverlay({
+        interleaved: true,
+        // Clone the layers with a random ID to avoid issues
+        // when adding the layers to the hidden div
+        layers: deckLayers.map(l => l.clone({
+            id: ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                )
+        }))
+    }));
     renderMap.once('idle', function() {
         if (format == 'png') {
             renderMap.getCanvas().toBlob(function(blob) {
