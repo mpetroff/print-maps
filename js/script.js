@@ -44,6 +44,11 @@ var deckLayers;
 
 function initMap() {
     try {
+
+        deck.carto.setDefaultCredentials({
+            apiBaseUrl: document.getElementById('regionSelect').value});
+
+
         deck.carto.fetchMap({cartoMapId: document.getElementById('mapIdInput').value})
         .then(({initialViewState, mapStyle, layers}) => {
     
