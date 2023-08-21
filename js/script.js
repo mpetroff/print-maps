@@ -45,6 +45,20 @@ var deckLayers;
 function initMap() {
     try {
 
+        if (map) {
+            map.remove();
+
+            // Properly dispose of Deck.gl layers
+            deckLayers.forEach(layer => {
+                if (layer && layer.setProps) {
+                    layer.setProps({visible: false}); // Hide the layer
+                    layer.setProps({visible: true});  // Show it briefly to trigger cleanup
+                    layer.setProps({visible: false}); // Hide it again
+                }
+            });
+            deckLayers = [];
+        }
+
         deck.carto.setDefaultCredentials({
             apiBaseUrl: document.getElementById('regionSelect').value});
 
